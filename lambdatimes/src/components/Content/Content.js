@@ -10,9 +10,10 @@ export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: '',
+      selected: 'all',
       tabs: [],
-      cards: []
+      cards: [],
+      switch: ''
     };
   }
 
@@ -20,41 +21,48 @@ export default class Content extends Component {
     this.setState({
       selected: 'all',
       tabs: tabData,
-      cards: cardData
+      cards: cardData,
+      switch: false
     })
   }
 
-  // componentDidUpdate() {
-  //   if (this.state.selected !== this.state.selected) {
-  //     this.setState({
-  //       selected: 'all',
-  //       tabs: tabData,
-  //       cards: cardData
-  //     })
-  //   }
-  // }
+  
+
+  componentDidUpdate() {
+    if (this.state.selected !== this.state.selected) {
+      this.setState({
+        selected: 'all',
+        tabs: tabData,
+        cards: cardData
+      })
+    }
+  }
 
   changeSelected = e => {
     // this function should take in the tab and update the state with the new tab
-  
-    this.setState({
-      selected: e.target.textContent.toLowerCase()
-    })
-    const newCardArray = cardData.filter( card => card.tab === this.state.selected);
-    if (this.state.selected === 'all') {
-      this.setState({ cards: cardData})
-    } else {
-     const newCardArray = this.state.cards.filter( card => card.tab === this.state.selected);
-     console.log(newCardArray)
-      this.setState({cards: newCardArray})
-    }
-
-     
+     const newCardsArray = cardData.filter(card => card.tab === e.target.textContent.toLowerCase())
+     const newTab = e.target.textContent.toLowerCase()
+     console.log(newCardsArray)
     
-
+     if (newTab === 'all') {
+      this.setState({
+        selected: newTab,
+        cards: cardData
+      })
+     } else {
+     this.setState({
+      selected: newTab,
+      cards: newCardsArray
+    })
+     }
+    
+    
+    
+   
+    //this.setState({ cards: newCardsArray
   };
 
-  filterCards = (prevState) => {
+  filterCards = () => {
     /* Right now this function only returns the cards on state.
       We're going to make this function more dynamic
       by using it to filter out our cards for when a tab is selcted
@@ -68,15 +76,25 @@ export default class Content extends Component {
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
     //console.log('step1')
-    // console.log(this.state.selected)
-    //  if (this.state.selected === 'all') {
-    //    this.setState({ cards: cardData})
-    //  } else {
-    //   const newCardArray = this.state.cards.filter( card => card.tab === this.state.selected);
-    //   console.log(newCardArray)
-    //    this.setState({cards: newCardArray})
-    //  }
-   //return this.state.cards
+    //console.log(this.state.selected)
+    const newCardsArray = this.state.cards.filter(card => card.tab === this.state.selected)
+    if (this.state.selected === 'all') {
+      this.setState({data: cardData})
+    } else {
+      this.setState({cards: newCardsArray})
+    }
+      
+  if (this.state.selected === 'all') {
+    return this.state.cards
+  } else  {
+    console.log('testing')
+    return this.state.cards
+    
+  }
+  
+    
+  //this.setState({cards: cardData})
+  return this.state.cards
   };
 
   render() {
