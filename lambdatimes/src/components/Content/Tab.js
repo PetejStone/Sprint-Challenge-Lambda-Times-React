@@ -5,10 +5,7 @@ const Tab = props => {
       if they match, the className should be: 'tab active-tab', 
       if it is not it should just be 'tab'*/
   return (
-    <div
-      className={''}
-      onClick={props.selectedHandler}
-    >
+    <div className={'tab'} onClick={props.changeSelected} >
     {props.tab.toUpperCase()}
     </div>
   );
