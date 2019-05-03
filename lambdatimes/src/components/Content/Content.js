@@ -10,7 +10,7 @@ export default class Content extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: 'all',
+      selected: '',
       tabs: [],
       cards: []
     };
@@ -35,15 +35,26 @@ export default class Content extends Component {
   // }
 
   changeSelected = e => {
-    // this function should take in the tab and update the state with the new tab.
-    
-   
+    // this function should take in the tab and update the state with the new tab
+  
     this.setState({
       selected: e.target.textContent.toLowerCase()
     })
+    const newCardArray = cardData.filter( card => card.tab === this.state.selected);
+    if (this.state.selected === 'all') {
+      this.setState({ cards: cardData})
+    } else {
+     const newCardArray = this.state.cards.filter( card => card.tab === this.state.selected);
+     console.log(newCardArray)
+      this.setState({cards: newCardArray})
+    }
+
+     
+    
+
   };
 
-  filterCards = () => {
+  filterCards = (prevState) => {
     /* Right now this function only returns the cards on state.
       We're going to make this function more dynamic
       by using it to filter out our cards for when a tab is selcted
@@ -56,19 +67,16 @@ export default class Content extends Component {
           of the items from cardData. 
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
-
-    const newCardArray = this.state.cards.filter( card => card.tab === this.state.selected)
-    console.log(newCardArray)
-
-
-    // if (this.state.selected === 'all') {
-    //   this.setState({cards: cardData})
-    // } else {
-    //   this.setState({cards: newCardArray})
-    // }
-    
-  
-    return this.state.cards;
+    //console.log('step1')
+    // console.log(this.state.selected)
+    //  if (this.state.selected === 'all') {
+    //    this.setState({ cards: cardData})
+    //  } else {
+    //   const newCardArray = this.state.cards.filter( card => card.tab === this.state.selected);
+    //   console.log(newCardArray)
+    //    this.setState({cards: newCardArray})
+    //  }
+   //return this.state.cards
   };
 
   render() {
@@ -79,9 +87,9 @@ export default class Content extends Component {
           `selectedTab` that includes the currently selected tab
           and `selectTabHandler` that includes the function to change the selected tab
         */}
-        {console.log(this.state.selected)}
+        
         <Tabs tabs={this.state.tabs} changeSelected={this.changeSelected} />
-        <Cards cards={this.filterCards()} />
+        <Cards cards={this.state.cards} />
       </div>
     );
   }
