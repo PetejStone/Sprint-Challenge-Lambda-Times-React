@@ -20,9 +20,13 @@ const Top = styled.div `
   align-items: none;
   flex-direction: row;
   position: fixed;
-  height: 44px;
+  height: 5rem;
   background-color: #333;
-
+  flex-wrap: wrap;
+  @media (min-width: 650px) {
+    flex-direction: column;
+    height: 44px;
+  }
 `
 
 const TopContainer = styled.div `
@@ -30,14 +34,19 @@ const TopContainer = styled.div `
   display: flex;
   justify-content: none;
   align-items: none;
-  flex-direction: row;
+  flex-direction: column;
   color: #fff;
   letter-spacing: 1px;
   padding: 0 10px;
   @media (min-width: 1280px) {
-    .top-bar .container {
     width: 1280px;
   }
+
+  @media (min-width: 650px) {
+    flex-direction: row;
+    width: 20%;
+  }
+
 `
 
 const ContainerLeft = styled.div `
@@ -48,11 +57,24 @@ const ContainerLeft = styled.div `
   flex: 1;
   font-size: 11px;
 
+  @media (max-width: 650px) {
+    width: 90%;
+    margin: 0 auto;
+    
+  }
+
   ${props => (props.type === "leftSpan" ? 
   `
   cursor: pointer;
   margin-right: 25%;
   font-weight: bold;
+
+  @media (max-width: 650px) {
+    flex: 0;
+    width: fit-content;
+    
+  }
+
   `: null)}
 `
 
@@ -90,7 +112,14 @@ const ContainerRight = styled.div`
     flex: 1;
     font-size: 11px;
     font-weight: bold;
-    ${props => (props.type === "rightSpan" ? `cursor: pointer; `: null)}
+    ${props => (props.type === "rightSpan" ?
+     `cursor: pointer; 
+     @media (max-width: 650px) {
+      justify-content: center;
+      
+    }
+     
+     `: null)}
     
 `
 const TopBar = () => {
