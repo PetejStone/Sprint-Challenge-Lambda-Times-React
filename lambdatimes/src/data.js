@@ -30,7 +30,7 @@ export const cardData = [
   },
   {
     headline: "History of Javascript Libraries: from jQuery to React",
-    tab: "React.js",
+    tab: "react.js",
     img: "./assets/puppers.jpg",
     author: "PUPPER S. DOGGO"
   },
